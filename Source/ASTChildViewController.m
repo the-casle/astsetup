@@ -79,9 +79,9 @@ typedef void(^block)();
     self.backButton.backgroundColor = [UIColor clearColor];
     self.backButton.frame = leftButtonView.frame;
     if([UIScreen mainScreen].scale == 3){
-        [self.backButton setImage:[UIImage imageWithContentsOfFile:@"/Library/PreferenceBundles/Asteroid.bundle/SetupResources/ic_arrow_back_ios@3x.png"] forState:UIControlStateNormal];
+        [self.backButton setImage:[UIImage imageWithContentsOfFile:@"/Library/Frameworks/astSetup.framework/ic_arrow_back_ios@3x.png"] forState:UIControlStateNormal];
     } else {
-        [self.backButton setImage:[UIImage imageWithContentsOfFile:@"/Library/PreferenceBundles/Asteroid.bundle/SetupResources/ic_arrow_back_ios@2x.png"] forState:UIControlStateNormal];
+        [self.backButton setImage:[UIImage imageWithContentsOfFile:@"/Library/Frameworks/astSetup.framework/ic_arrow_back_ios@2x.png"] forState:UIControlStateNormal];
     }
     [self.backButton setTitle:@"Back" forState:UIControlStateNormal];
     [self.backButton addTarget:self action:@selector(backButtonPressed) forControlEvents:UIControlEventTouchUpInside];
@@ -516,40 +516,34 @@ typedef void(^block)();
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *filePath = [NSString stringWithFormat:@"%@/%@", PATH_TO_CACHE, [NSURL URLWithString:pathToUrl].lastPathComponent];
     if ([fileManager fileExistsAtPath:filePath]){
-        //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-            NSLog(@"lock_TWEAK | holding image");
-            UIImage *image = [[UIImage alloc] initWithContentsOfFile:filePath];
-            if (image) {
-                NSLog(@"lock_TWEAK | setting image");
-                self.imageView.image = image;
-                if(self.style == ASTSetupStyleHeaderBasic || self.style == ASTSetupStyleHeaderTwoButtons){
-                    [self formatImageViewStyleHeader];
-                }
-                self.playerLayer.hidden = YES;
-                
-            } else {
-                self.videoPlayer = [AVPlayer playerWithURL:[NSURL fileURLWithPath:filePath]];
-                AVAsset *asset = self.videoPlayer.currentItem.asset;
-                NSArray *tracks = [asset tracksWithMediaType:AVMediaTypeVideo];
-                if(tracks.count > 0){
-                    //dispatch_async(dispatch_get_main_queue(), ^{
-                        if(self.style == ASTSetupStyleHeaderBasic || self.style == ASTSetupStyleHeaderTwoButtons){
-                            [self formatVideoPlayerStyleHeader];
-                        }
-                        self.playerLayer.player = self.videoPlayer;
-                        self.videoPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-                        
-                        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                                 selector:@selector(playerItemDidReachEnd:)
-                                                                     name:AVPlayerItemDidPlayToEndTimeNotification
-                                                                   object:[self.videoPlayer currentItem]];
-                        [self.videoPlayer play];
-                        self.imageView.hidden = YES;
-                    //});
-                    
-                }
+        UIImage *image = [[UIImage alloc] initWithContentsOfFile:filePath];
+        if (image) {
+            self.imageView.image = image;
+            if(self.style == ASTSetupStyleHeaderBasic || self.style == ASTSetupStyleHeaderTwoButtons){
+                [self formatImageViewStyleHeader];
             }
-        //});
+            self.playerLayer.hidden = YES;
+            
+        } else {
+            self.videoPlayer = [AVPlayer playerWithURL:[NSURL fileURLWithPath:filePath]];
+            AVAsset *asset = self.videoPlayer.currentItem.asset;
+            NSArray *tracks = [asset tracksWithMediaType:AVMediaTypeVideo];
+            if(tracks.count > 0){
+                if(self.style == ASTSetupStyleHeaderBasic || self.style == ASTSetupStyleHeaderTwoButtons){
+                    [self formatVideoPlayerStyleHeader];
+                }
+                self.playerLayer.player = self.videoPlayer;
+                self.videoPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+                
+                [[NSNotificationCenter defaultCenter] addObserver:self
+                                                         selector:@selector(playerItemDidReachEnd:)
+                                                             name:AVPlayerItemDidPlayToEndTimeNotification
+                                                           object:[self.videoPlayer currentItem]];
+                [self.videoPlayer play];
+                self.imageView.hidden = YES;
+                
+            }
+        }
     }
 }
 -(void) nextButtonPressed{

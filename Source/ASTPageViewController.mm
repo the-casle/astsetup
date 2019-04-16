@@ -96,9 +96,7 @@
     [[self view] addSubview:[self.pageController view]];
     [self.pageController didMoveToParentViewController:self];
     
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"astDisableLock"
-     object:self];
+    [self disableAutoLock];
 }
 
 - (void)changePage:(UIPageViewControllerNavigationDirection)direction {
@@ -117,9 +115,7 @@
         } completion:^(BOOL finished){
             self.view.superview.hidden = YES;
             self.view.center = self.view.superview.center;
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"astEnableLock"
-             object:self];
+            [self enableAutoLock];
             [self clearCache];
             //[self startRespring]; // MAKE SURE TO ENABLE THIS WHEN DONE MAKING!!!!!!!!!!!!!!!!!
         }];
@@ -140,6 +136,19 @@
     
     return childViewController;
 }
+
+#pragma mark - Autolock
+-(void) enableAutoLock{
+    SBLockScreenManager *lockMan = (SBLockScreenManager *)[objc_getClass("SBLockScreenManager") sharedInstance];
+    SBDashBoardIdleTimerProvider *idleProv = MSHookIvar<SBDashBoardIdleTimerProvider *>(lockMan.dashBoardViewController, "_idleTimerProvider");
+    [idleProv removeDisabledIdleTimerAssertionReason:@"astSetup"];
+}
+-(void) disableAutoLock{
+    SBLockScreenManager *lockMan = (SBLockScreenManager *)[objc_getClass("SBLockScreenManager") sharedInstance];
+    SBDashBoardIdleTimerProvider *idleProv = MSHookIvar<SBDashBoardIdleTimerProvider *>(lockMan.dashBoardViewController, "_idleTimerProvider");
+    [idleProv addDisabledIdleTimerAssertionReason:@"astSetup"];
+}
+
 
 #pragma mark - Respring
 - (void)startRespring {
