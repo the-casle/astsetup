@@ -7,17 +7,8 @@
 #import "ASTSourceDelegate.h"
 
 @interface ASTChildViewController : UIViewController
-@property (nonatomic, retain) UILabel *bigTitle;
-@property (nonatomic, retain) UILabel *titleDescription;
-@property (nonatomic, retain) AVPlayer *videoPlayer;
-@property (nonatomic, retain) AVPlayerLayer *playerLayer;
-@property (nonatomic, retain) UIView *mediaView;
-@property (nonatomic, retain) UIImageView *imageView;
-@property (nonatomic, retain) HighlightButton *otherButton;
-@property (nonatomic, retain) HighlightButton *nextButton;
 @property (nonatomic, retain) UINavigationBar *navBar;
 @property (nonatomic, retain) HighlightButton *backButton;
-@property (nonatomic, assign) ASTSetupPageStyle style;
 @property (nonatomic, retain) UIColor *colorTheme;
 
 @property (nonatomic, assign) NSInteger index;
@@ -25,5 +16,8 @@
 @property (nonatomic, retain) ASTSetupSettings *source;
 
 - (instancetype)initWithSource:(ASTSetupSettings *) source;
+-(void) setupComplete;
 -(void) sessionLoaded;
+-(void) nextButtonPressed;
+-(void) backButtonPressed;
 @end

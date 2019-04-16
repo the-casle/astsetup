@@ -108,7 +108,7 @@
     }
     if(pageIndex >= self.astPageSources.count){
         for(ASTChildViewController *page in self.pageController.viewControllers){
-            [page.videoPlayer pause];
+            [page setupComplete];
         }
         [UIView animateWithDuration:0.5 delay:0 options: UIViewAnimationOptionCurveEaseInOut  animations:^{
             self.view.center = CGPointMake(self.view.center.x, - (2 * self.view.frame.size.height));
@@ -130,7 +130,13 @@
 }
 
 - (ASTChildViewController *)viewControllerAtIndex:(NSUInteger)index {
-    ASTChildViewController *childViewController = [[ASTChildViewController alloc] initWithSource:self.astPageSources[index]];
+    ASTSetupSettings *settingsAtIndex = self.astPageSources[index];
+    ASTChildViewController *childViewController = nil;
+    if([settingsAtIndex.style respondsToSelector:@selector(initWithSource:)]){
+        childViewController = [[settingsAtIndex.style alloc] initWithSource:settingsAtIndex];
+    } else {
+        childViewController = [[ASTChildViewController alloc] initWithSource:settingsAtIndex];
+    }
     childViewController.index = index;
     childViewController.delegate = self;
     

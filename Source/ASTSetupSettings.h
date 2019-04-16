@@ -1,7 +1,7 @@
 #import "ASTSetupPageStyles.h"
 
 @interface ASTSetupSettings : NSObject
-@property (nonatomic, assign) ASTSetupPageStyle style;
+@property (nonatomic, assign) Class style;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *titleDescription;
 @property (nonatomic, retain) NSString *primaryButtonLabel;

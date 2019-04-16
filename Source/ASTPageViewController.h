@@ -4,6 +4,7 @@
 #import <objc/message.h>
 #import "ASTChildViewController.h"
 #import "ASTSourceDelegate.h"
+#import "ChildViewControllers/ASTBasicController.h"
 
 @interface ASTPageViewController : UIViewController <ASTSourceDelegate>
 - (instancetype)initWithPages:(NSArray *)pages;
