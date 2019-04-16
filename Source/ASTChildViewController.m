@@ -23,15 +23,15 @@ typedef void(^block)();
         delegateRespondsTo.changePage = [delegate respondsToSelector:@selector(changePage:)];
     }
 }
-- (instancetype)initWithSource:(NSDictionary *) aSource{
+- (instancetype)initWithSource:(ASTSetupSettings *) aSource{
     if(self = [super init]) {
         self.source = aSource;
-        self.style = [[self.source objectForKey:@"style"] intValue];
+        self.style = self.source.style;
     }
     return self;
 }
 -(void) viewDidLoad{
-    UIColor *sourceColor = self.source[@"colorTheme"];
+    UIColor *sourceColor = self.source.colorTheme;
     self.colorTheme = sourceColor ? sourceColor : [UIColor colorWithRed:10 / 255.0 green:106 / 255.0 blue:255 / 255.0 alpha:1.0];
     
     [self.view setBackgroundColor: [UIColor whiteColor]];
@@ -489,17 +489,17 @@ typedef void(^block)();
 }
 
 -(void) registerForSettings{
-    self.bigTitle.text = self.source[@"title"];
-    self.titleDescription.text = self.source[@"description"];
+    self.bigTitle.text = self.source.title;
+    self.titleDescription.text = self.source.titleDescription;
     
-    [self.nextButton setTitle: self.source[@"primaryButton"] forState:UIControlStateNormal];
-    [self.otherButton setTitle: self.source[@"secondaryButton"] forState:UIControlStateNormal];
-    if(self.source[@"backButton"]){
-        [self.backButton setTitle: self.source[@"backButton"] forState:UIControlStateNormal];
+    [self.nextButton setTitle: self.source.primaryButtonLabel forState:UIControlStateNormal];
+    [self.otherButton setTitle: self.source.secondaryButtonLabel forState:UIControlStateNormal];
+    if(self.source.backButtonLabel){
+        [self.backButton setTitle: self.source.backButtonLabel forState:UIControlStateNormal];
     }
     
-    [self setupMediaWithUrl:self.source[@"mediaURL"]];
-    if([self.source[@"disableBack"] boolValue]){
+    [self setupMediaWithUrl:self.source.mediaURL];
+    if(self.source.disableBack){
         self.backButton.hidden = YES;
     }
 }
@@ -508,7 +508,7 @@ typedef void(^block)();
     AVAsset *asset = self.videoPlayer.currentItem.asset;
     NSArray *tracks = [asset tracksWithMediaType:AVMediaTypeVideo];
     if(!self.imageView.image && tracks.count == 0){
-        [self setupMediaWithUrl:self.source[@"mediaURL"]];
+        [self setupMediaWithUrl:self.source.mediaURL];
     }
 }
 
@@ -550,14 +550,14 @@ typedef void(^block)();
     if(delegateRespondsTo.changePage){
         [self.delegate changePage: UIPageViewControllerNavigationDirectionForward];
     }
-    block primary = self.source[@"primaryBlock"];
+    block primary = self.source.primaryBlock;
     if(primary) primary();
 }
 -(void) backButtonPressed{
     if(delegateRespondsTo.changePage){
         [self.delegate changePage: UIPageViewControllerNavigationDirectionReverse];
     }
-    block second = self.source[@"secondaryBlock"];
+    block second = self.source.secondaryBlock;
     if(second) second();
 }
 

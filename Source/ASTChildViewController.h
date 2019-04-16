@@ -3,7 +3,7 @@
 #import <AVKit/AVKit.h>
 #import "HighlightButton.h"
 #import "ASTSetupPageStyles.h"
-
+#import "ASTSetupSettings.h"
 #import "ASTSourceDelegate.h"
 
 @interface ASTChildViewController : UIViewController
@@ -22,8 +22,8 @@
 
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, weak) id <ASTSourceDelegate> delegate;
-@property (nonatomic, retain) NSDictionary *source;
+@property (nonatomic, retain) ASTSetupSettings *source;
 
-- (instancetype)initWithSource:(NSDictionary *) source;
+- (instancetype)initWithSource:(ASTSetupSettings *) source;
 -(void) sessionLoaded;
 @end

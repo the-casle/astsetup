@@ -27,8 +27,8 @@
 }
 
 - (void)loadCache {
-    for (NSDictionary *page in self.astPageSources) {
-        NSURL *url = [NSURL URLWithString:page[@"mediaURL"]];
+    for (ASTSetupSettings *page in self.astPageSources) {
+        NSURL *url = [NSURL URLWithString:page.mediaURL];
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
             NSString *filePath = [NSString stringWithFormat:@"%@/%@", PATH_TO_CACHE, url.lastPathComponent];
             NSURL *scaledUrl = [self scaledUrlFromUrl:url];
