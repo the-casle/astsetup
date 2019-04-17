@@ -28,7 +28,7 @@ ASTSetupSettings *page1 = [[ASTSetupSettings alloc] init];
     NSArray *pages = @[page1]; // Add other pages to the array here.
     self.setup = [[ASTSetup alloc] initWithPages:pages]; // Creating the setup
 ```
-The default styles can be found under `/Source/ChildViewControllers`
+The default styles can be found under `/Source/ChildViewControllers` or inside of `ASTSetup.h`
 
 # Custom Controllers
 A big part of this framework is customization. Some styles are already included, however Developers can create any kind of style they would like. It is important to remember that the framework is fully functional without using custom controllers if not needed.
