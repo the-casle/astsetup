@@ -4,7 +4,6 @@
 #import "./HighlightButton.h"
 #import "./ASTChildViewController.h"
 #import "./ASTSetupSettings.h"
-#import "./ASTSourceDelegate.h"
 
 @interface ASTHeaderTwoButtonsController : ASTChildViewController
 @property (nonatomic, retain) UILabel *bigTitle;
