@@ -1,5 +1,3 @@
-![txt](https://github.com/the-casle/astsetup/blob/master/IMG_0121.png)
-
 # astsetup
 Setup framework for tweak developers
 
@@ -45,3 +43,5 @@ If additional properties are needed beyond those supplied within the settings, `
 
 # Last Notes
 It's up to the dev on `astSetup`'s use. If for example its used post installation, the dev will have to verify the setup is only triggered once. It doesn't have to be used soley following an installation, it will popup the window whenever the `ASTSetup` is initialized so it can be used wherever it's needed.
+
+![txt](https://github.com/the-casle/astsetup/blob/master/IMG_0121.png)
