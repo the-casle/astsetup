@@ -36,7 +36,7 @@ A big part of this framework is customization. Some styles are already included,
 ASTChildViewController.h
 ASTSetupSettings.h
 ```
-If you need more resources, the files under /Source/ChildViewControllers are formatted as custom classes so they can serve as a examples.
+If you need more resources, the files under `/Source/ChildViewControllers` are formatted as custom classes so they can serve as a examples.
 
 If additional properties are needed beyond those supplied within the settings, `ASTSetupSettings` can be inheritted and any additional properties can be included within the new class.
 
