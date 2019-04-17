@@ -1,16 +1,19 @@
-typedef NS_ENUM(NSUInteger, ASTSetupPageStyle) {
-    ASTSetupStyleBasic = 0,
-    ASTSetupStyleTwoButtons = 1,
-    ASTSetupStyleHeaderBasic = 2,
-    ASTSetupStyleHeaderTwoButtons = 3
-};
+
+@interface ASTBasicController : NSObject
+@end
+@interface ASTTwoButtonsController : NSObject
+@end
+@interface ASTHeaderBasicController : NSObject
+@end
+@interface ASTHeaderTwoButtonsController : NSObject
+@end
 
 /*
  Each ASTSetupSettings that is initialized represents a page.
 */
 
 @interface ASTSetupSettings : NSObject
-@property (nonatomic, assign) ASTSetupPageStyle style;
+@property (nonatomic, assign) Class style; // Any of the above AST...Controller classes can be used as arguments. Custom classes can also be added (outlined in wiki).
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *titleDescription;
 @property (nonatomic, retain) NSString *primaryButtonLabel;
