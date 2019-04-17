@@ -38,7 +38,7 @@ ASTSetupSettings.h
 ```
 If you need more resources, the files under /Source/ChildViewControllers are formatted as custom classes so they can serve as a examples.
 
-If need more properties than supplied within the settings, `ASTSetupSettings` can be inheritted and any additional properties can be included within the new class.
+If additional properties are needed beyond those supplied within the settings, `ASTSetupSettings` can be inheritted and any additional properties can be included within the new class.
 
 # Last Notes
 It's up to the dev on `astSetup`'s use. If for example its used post installation, the dev will have to verify the setup is only triggered once. It doesn't have to be used soley following an installation, it will popup the window whenever the `ASTSetup` is initialized so it can be used through the tweak or preferences if needed.
