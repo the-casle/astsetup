@@ -7,9 +7,12 @@ Transfer the most recent `.framework` to `$THEOS/lib` from the releases tab.
 `ASTSetup.h` under the release tab should be placed under `$THEOS/include`
 
 # Usage
-Most of the properties are outlined under `ASTSetup.h` (release tab). Essentially the framework will create a window holding the setup controllers.
+Add `astSetup` as an extra framework inside of the makefile.
+```
+$(TWEAK_NAME)_EXTRA_FRAMEWORKS = astSetup
+```
 
-Each page of the setup is broken down into multiple properties. Below is an example of a setup being initialized. (Header contains full list of properties).
+Each page of the setup is broken down into multiple properties. Below is an example of a setup being initialized. The default properties are outlined under `ASTSetup.h` (release tab), but more can be added for custom controllers explained under the Custom Controllers section. Essentially the framework will create a window holding the setup controllers. 
 
 ```objc
 ASTSetupSettings *page1 = [[ASTSetupSettings alloc] init];
@@ -22,7 +25,7 @@ ASTSetupSettings *page1 = [[ASTSetupSettings alloc] init];
     page1.mediaURL = @"https://the-casle.github.io/TweakResources/Asteroid.png";
     page1.primaryBlock= [^{ NSLog(@"code that will be run when button is pressed");} copy]; // copy is important!
     
-    NSArray *pages = @[page1];
+    NSArray *pages = @[page1]; // Add other pages to the array here.
     self.setup = [[ASTSetup alloc] initWithPages:pages]; // Creating the setup
 ```
 
@@ -38,4 +41,4 @@ If you need more resources, the files under /Source/ChildViewControllers are for
 If need more properties than supplied within the settings, `ASTSetupSettings` can be inheritted and any additional properties can be included within the new class.
 
 # Last Notes
-It's up to the dev on handling the setup being run only once if that's their primary use. It doesn't have to be only for following an installation, it will popup the window whenever the `ASTSetup` is initialized.
+It's up to the dev on `astSetup`'s use. If for example its used post installation, the dev will have to verify the setup is only triggered once. It doesn't have to be used soley following an installation, it will popup the window whenever the `ASTSetup` is initialized so it can be used through the tweak or preferences if needed.
