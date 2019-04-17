@@ -132,7 +132,7 @@
 - (ASTChildViewController *)viewControllerAtIndex:(NSUInteger)index {
     ASTSetupSettings *settingsAtIndex = self.astPageSources[index];
     ASTChildViewController *childViewController = nil;
-    if([settingsAtIndex.style respondsToSelector:@selector(initWithSource:)]){
+    if([settingsAtIndex.style respondsToSelector:@selector(isASTChildViewController)]){
         childViewController = [[settingsAtIndex.style alloc] initWithSource:settingsAtIndex];
     } else {
         childViewController = [[ASTChildViewController alloc] initWithSource:settingsAtIndex];

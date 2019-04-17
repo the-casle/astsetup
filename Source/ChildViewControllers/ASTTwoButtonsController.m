@@ -1,13 +1,11 @@
-#import "ASTBasicController.h"
+#import "ASTTwoButtonsController.h"
 
 #define PATH_TO_CACHE @"/var/mobile/Library/Caches/Asteroid"
 
-@interface ASTBasicController ()
+@interface ASTTwoButtonsController ()
 @end
 
-@implementation ASTBasicController {
-    
-}
+@implementation ASTTwoButtonsController
 
 - (instancetype)initWithSource:(ASTSetupSettings *) aSource{
     if(self = [super init]) {
@@ -37,7 +35,7 @@
     
     [self formatHeaderAndDescriptionTop];
     [self formatMediaPlayerStyleCenter];
-
+    
     [self registerForSettings];
 }
 
@@ -142,13 +140,56 @@
                                   attribute: NSLayoutAttributeNotAnAttribute
                                  multiplier: 1
                                    constant: 50] setActive:true];
-    [[NSLayoutConstraint constraintWithItem: self.nextButton
+    
+    self.otherButton = [[HighlightButton alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    [self.otherButton setTitle:@"Set Up Later in Settings" forState:UIControlStateNormal];
+    [self.otherButton setTitleColor:self.colorTheme forState:UIControlStateNormal];
+    self.otherButton.backgroundColor = [UIColor clearColor];
+    self.otherButton.layer.cornerRadius = 7.5;
+    self.otherButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.otherButton.titleLabel.textColor = [UIColor whiteColor];
+    self.otherButton.titleLabel.font = [UIFont systemFontOfSize:18];
+    [self.otherButton addTarget:self action:@selector(nextButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.otherButton];
+    
+    self.otherButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [[NSLayoutConstraint constraintWithItem: self.otherButton
+                                  attribute: NSLayoutAttributeCenterX
+                                  relatedBy: NSLayoutRelationEqual
+                                     toItem: self.view
+                                  attribute: NSLayoutAttributeCenterX
+                                 multiplier: 1
+                                   constant: 0] setActive:true];
+    [[NSLayoutConstraint constraintWithItem: self.otherButton
+                                  attribute: NSLayoutAttributeWidth
+                                  relatedBy: NSLayoutRelationEqual
+                                     toItem: nil
+                                  attribute: NSLayoutAttributeNotAnAttribute
+                                 multiplier: 1
+                                   constant: 320] setActive:true];
+    [[NSLayoutConstraint constraintWithItem: self.otherButton
+                                  attribute: NSLayoutAttributeHeight
+                                  relatedBy: NSLayoutRelationEqual
+                                     toItem: nil
+                                  attribute: NSLayoutAttributeNotAnAttribute
+                                 multiplier: 1
+                                   constant: 50] setActive:true];
+    [[NSLayoutConstraint constraintWithItem: self.otherButton
                                   attribute: NSLayoutAttributeBottom
                                   relatedBy: NSLayoutRelationEqual
                                      toItem: self.view
                                   attribute: NSLayoutAttributeBottom
                                  multiplier: 1
-                                   constant: -30] setActive:true];
+                                   constant: -10] setActive:true];
+    
+    
+    [[NSLayoutConstraint constraintWithItem: self.nextButton
+                                  attribute: NSLayoutAttributeBottom
+                                  relatedBy: NSLayoutRelationEqual
+                                     toItem: self.otherButton
+                                  attribute: NSLayoutAttributeTop
+                                 multiplier: 1
+                                   constant: 0] setActive:true];
 }
 
 #pragma mark - Title and Descrition
@@ -209,12 +250,12 @@
                                    constant: -10] setActive:true];
 }
 
-
 -(void) registerForSettings{
     self.bigTitle.text = self.source.title;
     self.titleDescription.text = self.source.titleDescription;
     
     [self.nextButton setTitle: self.source.primaryButtonLabel forState:UIControlStateNormal];
+    [self.otherButton setTitle: self.source.secondaryButtonLabel forState:UIControlStateNormal];
     if(self.source.backButtonLabel){
         [self.backButton setTitle: self.source.backButtonLabel forState:UIControlStateNormal];
     }

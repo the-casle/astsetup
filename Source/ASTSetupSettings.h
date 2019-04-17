@@ -1,4 +1,3 @@
-#import "ASTSetupPageStyles.h"
 
 @interface ASTSetupSettings : NSObject
 @property (nonatomic, assign) Class style;

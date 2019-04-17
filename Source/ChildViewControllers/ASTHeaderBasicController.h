@@ -11,4 +11,8 @@
 @property (nonatomic, retain) UILabel *titleDescription;
 @property (nonatomic, retain) HighlightButton *otherButton;
 @property (nonatomic, retain) HighlightButton *nextButton;
+@property (nonatomic, retain) AVPlayer *videoPlayer;
+@property (nonatomic, retain) AVPlayerLayer *playerLayer;
+@property (nonatomic, retain) UIView *mediaView;
+@property (nonatomic, retain) UIImageView *imageView;
 @end

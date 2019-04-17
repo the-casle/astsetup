@@ -113,4 +113,9 @@ typedef void(^block)();
     block second = self.source.secondaryBlock;
     if(second) second();
 }
+
++(BOOL) isASTChildViewController{
+    // allows for checking inheritence idk
+    return YES;
+}
 @end
