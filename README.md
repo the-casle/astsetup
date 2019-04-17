@@ -2,12 +2,12 @@
 Setup framework for tweak developers
 
 # Installation
-Download the most recent release and move the `.framework` to `$THEOS/lib`
+Transfer the most recent `.framework` to `$THEOS/lib` from the releases tab.
 
-The header file under the release tab should be placed under `$THEOS/include`
+`ASTSetup.h` under the release tab should be placed under `$THEOS/include`
 
 # Usage
-Most of the properties are outlined under the public header (release tab). Essentially the framework will create a window holding the setup controllers.
+Most of the properties are outlined under `ASTSetup.h` (release tab). Essentially the framework will create a window holding the setup controllers.
 
 Each page of the setup is broken down into multiple properties. Below is an example of a setup being initialized. (Header contains full list of properties).
 
@@ -20,7 +20,7 @@ ASTSetupSettings *page1 = [[ASTSetupSettings alloc] init];
     page1.secondaryButtonLabel = @"second";
     page1.backButtonLabel = @"Skip";
     page1.mediaURL = @"https://the-casle.github.io/TweakResources/Asteroid.png";
-    page1.primaryBlock= [^{ NSLog(@"lock_TWEAK | block 1");} copy];
+    page1.primaryBlock= [^{ NSLog(@"code that will be run when button is pressed");} copy]; // copy is important!
     
     NSArray *pages = @[page1];
     self.setup = [[ASTSetup alloc] initWithPages:pages]; // Creating the setup
@@ -33,4 +33,9 @@ Empty class files are inside of the repo for a start, however the following file
 ASTChildViewController.h
 ASTSetupSettings.h
 ```
-Also the files under /Source/ChildViewControllers are formatted as custom classes so they can serve as an example.
+If you need more resources, the files under /Source/ChildViewControllers are formatted as custom classes so they can serve as a examples.
+
+If need more properties than supplied within the settings, `ASTSetupSettings` can be inheritted and any additional properties can be included within the new class.
+
+# Last Notes
+It's up to the dev on handling the setup being run only once if that's their primary use. It doesn't have to be only for following an installation, it will popup the window whenever the `ASTSetup` is initialized.
