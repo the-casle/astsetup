@@ -1,7 +1,7 @@
 Package: com.thecasle.astsetup
 Name: astSetup
 Depends: 
-Version: 0.0.3
+Version: 0.0.4
 Architecture: iphoneos-arm
 Description: Setup framework for developers.
 Maintainer: Jake Kaslewicz

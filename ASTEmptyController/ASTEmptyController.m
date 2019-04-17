@@ -19,6 +19,7 @@
 
 -(void) registerForSettings{ // Not required, just for better formatting
     // Settings up stuff
+    // someProperty = self.source.title;
 }
 
 -(void) sessionLoaded{
