@@ -27,4 +27,10 @@ ASTSetupSettings *page1 = [[ASTSetupSettings alloc] init];
 ```
 
 # Custom Controllers
-A big part of this framework is customization. Its just the base, however developers can create any kind of view they would like. 
+A big part of this framework is customization. Some styles are already included, however Developers can create any kind of style they would like. 
+Empty class files are inside of the repo for a start, however the following files need to be included with the project so they can be imported for inheritence. They can be found under the release tab or within the source folder.
+```objc
+ASTChildViewController.h
+ASTSetupSettings.h
+```
+Also the files under /Source/ChildViewControllers are formatted as custom classes so they can serve as an example.
