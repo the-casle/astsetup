@@ -115,7 +115,7 @@
     self.nextButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.nextButton.titleLabel.textColor = [UIColor whiteColor];
     self.nextButton.titleLabel.font = [UIFont systemFontOfSize:18];
-    [self.nextButton addTarget:self action:@selector(nextButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.nextButton addTarget:self action:@selector(primaryButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.nextButton];
     
     self.nextButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -149,7 +149,7 @@
     self.otherButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.otherButton.titleLabel.textColor = [UIColor whiteColor];
     self.otherButton.titleLabel.font = [UIFont systemFontOfSize:18];
-    [self.otherButton addTarget:self action:@selector(nextButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.otherButton addTarget:self action:@selector(secondaryButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.otherButton];
     
     self.otherButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -305,6 +305,13 @@
             }
         }
     }
+}
+
+-(void) primaryButtonPressed{
+    [self nextButtonPressedWithBlock:self.source.primaryBlock];
+}
+-(void) secondaryButtonPressed{
+    [self nextButtonPressedWithBlock:self.source.secondaryBlock];
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {

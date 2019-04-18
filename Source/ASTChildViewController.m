@@ -2,27 +2,11 @@
 
 #define PATH_TO_CACHE @"/var/mobile/Library/Caches/Asteroid"
 
-typedef void(^block)();
-
 @interface ASTChildViewController ()
 @end
 
-@implementation ASTChildViewController {
-    struct {
-        BOOL changePage:1;
-    } delegateRespondsTo;
-}
+@implementation ASTChildViewController
 
-#pragma mark - Delegate property
-
-@synthesize delegate;
-- (void)setDelegate:(id <ASTSourceDelegate>)aDelegate {
-    if (delegate != aDelegate) {
-        delegate = aDelegate;
-        
-        delegateRespondsTo.changePage = [delegate respondsToSelector:@selector(changePage:)];
-    }
-}
 - (instancetype)initWithSource:(ASTSetupSettings *) aSource{
     if(self = [super init]) {
         self.source = aSource;
@@ -99,19 +83,16 @@ typedef void(^block)();
     // Can be overriden
 }
 
--(void) nextButtonPressed{
-    if(delegateRespondsTo.changePage){
+-(void) nextButtonPressedWithBlock:(block) aBlock{
+    if([self.delegate respondsToSelector:@selector(changePage:)]){
         [self.delegate changePage: UIPageViewControllerNavigationDirectionForward];
     }
-    block primary = self.source.primaryBlock;
-    if(primary) primary();
+    if(aBlock) aBlock();
 }
 -(void) backButtonPressed{
-    if(delegateRespondsTo.changePage){
+    if([self.delegate respondsToSelector:@selector(changePage:)]){
         [self.delegate changePage: UIPageViewControllerNavigationDirectionReverse];
     }
-    block second = self.source.secondaryBlock;
-    if(second) second();
 }
 
 +(BOOL) isASTChildViewController{

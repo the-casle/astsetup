@@ -52,7 +52,7 @@
 
 - (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.mediaView.frame = self.playerLayer.frame;
+    self.mediaView.frame = self.playerLayer.bounds;
 }
 
 #pragma mark - Video Player For Style
@@ -124,7 +124,7 @@
     self.nextButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.nextButton.titleLabel.textColor = [UIColor whiteColor];
     self.nextButton.titleLabel.font = [UIFont systemFontOfSize:18];
-    [self.nextButton addTarget:self action:@selector(nextButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.nextButton addTarget:self action:@selector(primaryButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.nextButton];
     
     self.nextButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -272,6 +272,9 @@
             }
         }
     }
+}
+-(void) primaryButtonPressed{
+    [self nextButtonPressedWithBlock:self.source.primaryBlock];
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {

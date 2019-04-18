@@ -49,7 +49,7 @@
 
 - (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.mediaView.frame = self.playerLayer.frame;
+    self.mediaView.frame = self.playerLayer.bounds;
 }
 
 #pragma mark - Video Player For Style
@@ -121,7 +121,7 @@
     self.nextButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.nextButton.titleLabel.textColor = [UIColor whiteColor];
     self.nextButton.titleLabel.font = [UIFont systemFontOfSize:18];
-    [self.nextButton addTarget:self action:@selector(nextButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.nextButton addTarget:self action:@selector(primaryButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.nextButton];
     
     self.nextButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -155,7 +155,7 @@
     self.otherButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.otherButton.titleLabel.textColor = [UIColor whiteColor];
     self.otherButton.titleLabel.font = [UIFont systemFontOfSize:18];
-    [self.otherButton addTarget:self action:@selector(nextButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.otherButton addTarget:self action:@selector(secondaryButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.otherButton];
     
     self.otherButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -298,7 +298,7 @@
             AVAsset *asset = self.videoPlayer.currentItem.asset;
             NSArray *tracks = [asset tracksWithMediaType:AVMediaTypeVideo];
             if(tracks.count > 0){
-                [self formatImageViewStyleHeader];
+                [self formatVideoPlayerStyleHeader];
                 self.playerLayer.player = self.videoPlayer;
                 self.videoPlayer.actionAtItemEnd = AVPlayerActionAtItemEndNone;
                 
@@ -312,6 +312,12 @@
             }
         }
     }
+}
+-(void) primaryButtonPressed{
+    [self nextButtonPressedWithBlock:self.source.primaryBlock];
+}
+-(void) secondaryButtonPressed{
+    [self nextButtonPressedWithBlock:self.source.secondaryBlock];
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {

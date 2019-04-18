@@ -117,7 +117,7 @@
     self.nextButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.nextButton.titleLabel.textColor = [UIColor whiteColor];
     self.nextButton.titleLabel.font = [UIFont systemFontOfSize:18];
-    [self.nextButton addTarget:self action:@selector(nextButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.nextButton addTarget:self action:@selector(primaryButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.nextButton];
     
     self.nextButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -245,7 +245,6 @@
         if (image) {
             self.imageView.image = image;
             self.playerLayer.hidden = YES;
-            
         } else {
             self.videoPlayer = [AVPlayer playerWithURL:[NSURL fileURLWithPath:filePath]];
             AVAsset *asset = self.videoPlayer.currentItem.asset;
@@ -264,6 +263,9 @@
             }
         }
     }
+}
+-(void) primaryButtonPressed{
+    [self nextButtonPressedWithBlock:self.source.primaryBlock];
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {

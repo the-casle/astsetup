@@ -5,6 +5,8 @@
 #import "ASTSetupSettings.h"
 #import "ASTSourceDelegate.h"
 
+typedef void(^block)();
+
 @interface ASTChildViewController : UIViewController
 @property (nonatomic, retain) UINavigationBar *navBar;
 @property (nonatomic, retain) HighlightButton *backButton;
@@ -17,6 +19,6 @@
 - (instancetype)initWithSource:(ASTSetupSettings *) source;
 -(void) setupComplete;
 -(void) sessionLoaded;
--(void) nextButtonPressed;
+-(void) nextButtonPressedWithBlock:(block) aBlock;
 -(void) backButtonPressed;
 @end
