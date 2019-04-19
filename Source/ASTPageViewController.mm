@@ -85,6 +85,7 @@
     self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     
     [[self.pageController view] setFrame:[[self view] bounds]];
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     ASTChildViewController *initialViewController = [self viewControllerAtIndex:0];
     initialViewController.delegate = self;
@@ -118,7 +119,6 @@
             self.view.center = self.view.superview.center;
             [self enableAutoLock];
             [self clearCache];
-            //[self startRespring];
         }];
         return;
     }
