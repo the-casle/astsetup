@@ -118,7 +118,7 @@
             self.view.center = self.view.superview.center;
             [self enableAutoLock];
             [self clearCache];
-            //[self startRespring]; // MAKE SURE TO ENABLE THIS WHEN DONE MAKING!!!!!!!!!!!!!!!!!
+            //[self startRespring];
         }];
         return;
     }
@@ -133,7 +133,7 @@
 - (ASTChildViewController *)viewControllerAtIndex:(NSUInteger)index {
     ASTSetupSettings *settingsAtIndex = self.astPageSources[index];
     ASTChildViewController *childViewController = nil;
-    if([settingsAtIndex.style respondsToSelector:@selector(isASTChildViewController)]){
+    if(classDescendsFromClass(settingsAtIndex.style, [ASTChildViewController class])){
         childViewController = [[settingsAtIndex.style alloc] initWithSource:settingsAtIndex];
     } else {
         childViewController = [[ASTChildViewController alloc] initWithSource:settingsAtIndex];
@@ -154,6 +154,15 @@
     SBLockScreenManager *lockMan = (SBLockScreenManager *)[objc_getClass("SBLockScreenManager") sharedInstance];
     SBDashBoardIdleTimerProvider *idleProv = MSHookIvar<SBDashBoardIdleTimerProvider *>(lockMan.dashBoardViewController, "_idleTimerProvider");
     [idleProv addDisabledIdleTimerAssertionReason:@"astSetup"];
+}
+
+BOOL classDescendsFromClass(Class classA, Class classB){
+    while(1) {
+        if(classA == classB) return YES;
+        id superClass = class_getSuperclass(classA);
+        if(classA == superClass) return (superClass == classB);
+        classA = superClass;
+    }
 }
 
 
@@ -229,5 +238,4 @@
                          }
                      }];
 }
-
 @end

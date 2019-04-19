@@ -94,9 +94,4 @@
         [self.delegate changePage: UIPageViewControllerNavigationDirectionReverse];
     }
 }
-
-+(BOOL) isASTChildViewController{
-    // allows for checking inheritence idk
-    return YES;
-}
 @end
