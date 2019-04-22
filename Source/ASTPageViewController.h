@@ -1,6 +1,5 @@
 #import <UIKit/UIKit.h>
 #import <substrate.h>
-#import <spawn.h>
 #import <objc/message.h>
 #import "ASTChildViewController.h"
 #import "ASTSourceDelegate.h"
